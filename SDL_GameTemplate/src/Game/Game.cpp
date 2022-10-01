@@ -6,16 +6,16 @@ core::Application* CreateApp() {
 }
 
 namespace game {
-	Game::Game(const char* title, Uint32 flags) : Application(title, flags), m_Player() {}
+	Game::Game(const char* title, Uint32 flags) : Application(title, flags), m_Player(200, 200) {
+	}
 
 	void Game::OnStart() {
 		DEBUG_LOG("Starting the Game");
-		m_Player.x = 100;
-		m_Player.y = 100;
-		m_Player.tex = texture::LoadTexture(m_Renderer, "Assets/Sprites/Temp_DOGGO.bmp");
+		SDL_Texture* playerTex = texture::LoadTexture(m_Renderer, "Assets/Sprites/Temp_DOGGO.bmp");
+		m_Player.SetTex(playerTex);
 	}
 
 	void Game::OnDraw() {
-		texture::BlitTexture(m_Renderer, m_Player.tex, m_Player.x, m_Player.y);
+		m_Player.Draw(m_Renderer);
 	}
 }

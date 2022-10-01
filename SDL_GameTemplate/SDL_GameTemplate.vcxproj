@@ -93,6 +93,7 @@
     <ClCompile Include="src\Game\Game.cpp" />
     <ClCompile Include="src\Core\Application.cpp" />
     <ClCompile Include="src\Core\Texture.cpp" />
+    <ClCompile Include="src\Game\SpriteObj.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -101,7 +102,7 @@
     <ClInclude Include="src\Game\Game.h" />
     <ClInclude Include="src\Core\Application.h" />
     <ClInclude Include="src\Core\Texture.h" />
-    <ClInclude Include="src\Game\GameStructs.h" />
+    <ClInclude Include="src\Game\SpriteObj.h" />
     <ClInclude Include="src\Game\TileMap.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

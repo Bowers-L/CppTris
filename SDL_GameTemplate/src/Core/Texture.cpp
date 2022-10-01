@@ -9,6 +9,8 @@ namespace texture {
 			dest.y = y;
 
 			SDL_CALL(SDL_QueryTexture(texture, NULL, NULL, &dest.w, &dest.h));
+			dest.w *= 2;
+			dest.h *= 2;
 			return dest;
 		}
 	}

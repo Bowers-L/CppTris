@@ -2,7 +2,7 @@
 
 #include "Core/Core.h"
 
-#include "GameStructs.h"
+#include "SpriteObj.h"
 
 namespace game {
 	class Game : public core::Application
