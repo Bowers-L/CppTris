@@ -23,4 +23,7 @@ public:
 	void OnRender();
 
 	void Teardown();	//Called when application finishes
+
+private:
+	SDL_Window* CreateWindow() const;
 };

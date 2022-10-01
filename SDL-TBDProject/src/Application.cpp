@@ -29,20 +29,20 @@ bool Application::Startup()
 		return false;
 	}
 
-	const char* gameTitle = "TBD Game";
-	Uint32 flags = SDL_WINDOW_OPENGL;
-	if ((m_Window = SDL_CreateWindow(	gameTitle,					//title of window
-										SDL_WINDOWPOS_UNDEFINED,	//xpos of window
-										SDL_WINDOWPOS_UNDEFINED,	//ypos of window
-										SCREEN_WIDTH,				//width
-										SCREEN_HEIGHT,				//height
-										flags)						//flags
-		) == NULL) {
-
+							
+	m_Window = CreateWindow();
+	if (m_Window == NULL) {
 		return false;
 	}
 
 	return true;
+}
+
+SDL_Window* Application::CreateWindow() const {
+	const char* gameTitle = "TBD Game";
+	Uint32 windowFlags = SDL_WINDOW_OPENGL;
+	return SDL_CreateWindow(gameTitle, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+		SCREEN_WIDTH, SCREEN_HEIGHT, windowFlags);
 }
 
 void Application::OnEvent(SDL_Event* e)
