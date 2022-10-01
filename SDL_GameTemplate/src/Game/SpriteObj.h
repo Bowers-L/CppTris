@@ -9,8 +9,12 @@ public:
 	int x;
 	int y;
 
+	int scaleX;
+	int scaleY;
+
 public:
 	SpriteObj(int x, int y);
+	SpriteObj(int x, int y, float scaleX, float scaleY);
 
 	void Draw(SDL_Renderer* renderer);
 

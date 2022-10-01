@@ -6,7 +6,7 @@ core::Application* CreateApp() {
 }
 
 namespace game {
-	Game::Game(const char* title, Uint32 flags) : Application(title, flags), m_Player(200, 200) {
+	Game::Game(const char* title, Uint32 flags) : Application(title, flags), m_Player(200, 200, 5, 1) {
 	}
 
 	void Game::OnStart() {

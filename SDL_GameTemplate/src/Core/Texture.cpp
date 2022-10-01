@@ -9,8 +9,6 @@ namespace texture {
 			dest.y = y;
 
 			SDL_CALL(SDL_QueryTexture(texture, NULL, NULL, &dest.w, &dest.h));
-			dest.w *= 2;
-			dest.h *= 2;
 			return dest;
 		}
 	}
@@ -26,10 +24,14 @@ namespace texture {
 		return texture;
 	}
 
-	
-	void BlitTexture(SDL_Renderer* renderer, SDL_Texture* texture, int x, int y) {
+	void BlitTexture(SDL_Renderer* renderer, SDL_Texture* texture, int x, int y, float scaleW, float scaleH) {
 		SDL_Rect dest = GetDestRect(texture, x, y);
-
+		dest.w *= scaleW;
+		dest.h *= scaleH;
 		SDL_RenderCopy(renderer, texture, NULL, &dest);
+	}
+
+	void BlitTexture(SDL_Renderer* renderer, SDL_Texture* texture, int x, int y) {
+		BlitTexture(renderer, texture, x, y, 1, 1);
 	}
 }
