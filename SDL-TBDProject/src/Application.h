@@ -9,6 +9,10 @@ class Application {
 private:
 	bool m_Running;
 	SDL_Window* m_Window;
+	SDL_Renderer* m_Renderer;
+	SDL_Surface* m_WindowSurface;
+
+	SDL_Surface* m_SurfTest;
 public:
 	Application();
 
