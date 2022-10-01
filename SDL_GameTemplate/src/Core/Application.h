@@ -5,34 +5,35 @@
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
 
-class Application {
-private:
-	bool m_Running;
+namespace core {
+	class Application {
+	private:
+		bool m_Running;
 
-	SDL_Window* m_Window;
-	SDL_Renderer* m_Renderer;
-	SDL_Surface* m_WindowSurface;
-public:
-	Application();
+		const char* m_GameTitle;
+		Uint32 m_WindowFlags;
 
-	int Run();	//Called by main when the application starts up. Contains the main game loop.
+		SDL_Window* m_Window;
+		SDL_Renderer* m_Renderer;
+		SDL_Surface* m_WindowSurface;
+	public:
+		Application(const char* gameTitle, Uint32 windowFlags);
+
+		int Run();	//Called by main when the application starts up. Contains the main game loop.
 
 
-	bool Startup();	//Called when application starts.
+		bool Startup();	//Called when application starts.
 
-	//virtual functions corresponding to callback
-	virtual void OnStart() {}
-	virtual void OnUpdate() {}
-	virtual void OnDraw() {}
-	virtual void OnQuit() {}
+		virtual void OnStart() {}	//Initialize game data here
+		virtual void OnUpdate() {}	//
+		virtual void OnDraw() {}
+		virtual void OnQuit() {}
 
-	//Called once per frame
-	void ProcessEvent(SDL_Event* e);
-	void Update();
-	void Render();
+		//Called once per frame
+		void ProcessEvent(SDL_Event* e);
+		void Update();
+		void Render();
 
-	void Teardown();	//Called when application finishes
-
-private:
-	SDL_Window* CreateWindow() const;
-};
+		void Teardown();	//Called when application finishes
+	};
+}
