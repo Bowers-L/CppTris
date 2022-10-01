@@ -5,6 +5,8 @@
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
 
+#define FRAME_DELAY 16
+
 namespace core {
 	class Application {
 	private:
@@ -13,9 +15,10 @@ namespace core {
 		const char* m_GameTitle;
 		Uint32 m_WindowFlags;
 
+	protected:
 		SDL_Window* m_Window;
 		SDL_Renderer* m_Renderer;
-		SDL_Surface* m_WindowSurface;
+
 	public:
 		Application(const char* gameTitle, Uint32 windowFlags);
 
@@ -24,10 +27,11 @@ namespace core {
 
 		bool Startup();	//Called when application starts.
 
-		virtual void OnStart() {}	//Initialize game data here
-		virtual void OnUpdate() {}	//
-		virtual void OnDraw() {}
-		virtual void OnQuit() {}
+		virtual void OnStart() {}	//Initialize game data
+		virtual void OnEvent(SDL_Event* e) {}
+		virtual void OnUpdate() {}	//Update game data
+		virtual void OnDraw() {}	//Render game objects
+		virtual void OnQuit() {}	//Do any cleanup
 
 		//Called once per frame
 		void ProcessEvent(SDL_Event* e);

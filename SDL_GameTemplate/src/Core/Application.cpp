@@ -9,8 +9,7 @@ namespace core {
 		m_WindowFlags(windowFlags), 
 		m_Running(false), 
 		m_Window(nullptr), 
-		m_Renderer(nullptr), 
-		m_WindowSurface(nullptr) {}
+		m_Renderer(nullptr) {}
 
 	int Application::Run() {
 		if (!Startup()) {
@@ -26,6 +25,8 @@ namespace core {
 
 			Update();
 			Render();
+
+			SDL_Delay(FRAME_DELAY);	//Lock the framerate at 62.5 fps
 		}
 
 		Teardown();
@@ -35,7 +36,7 @@ namespace core {
 	bool Application::Startup()
 	{
 		if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-			printf("Could not initialize SDL: %s", SDL_GetError());
+			SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_ERROR, "Could not initialize SDL: %s", SDL_GetError());
 			return false;
 		}
 
@@ -45,12 +46,13 @@ namespace core {
 
 			return false;
 		}
-		m_WindowSurface = SDL_GetWindowSurface(m_Window);
 
 		m_Renderer = SDL_CreateRenderer(m_Window, -1, 0);
 		if (m_Renderer == NULL) {
 			return false;
 		}
+
+		OnStart();
 
 		return true;
 	}
@@ -59,6 +61,9 @@ namespace core {
 	{
 		if (e->type == SDL_QUIT) {
 			m_Running = false;
+		}
+		else {
+			OnEvent(e);
 		}
 	}
 
@@ -69,16 +74,17 @@ namespace core {
 
 	void Application::Render()
 	{
-		SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0, 255);
+		SDL_SetRenderDrawColor(m_Renderer, 128, 128, 128, 255);
 		SDL_RenderClear(m_Renderer);
 
 		OnDraw();
 
-		SDL_UpdateWindowSurface(m_Window);
+		SDL_RenderPresent(m_Renderer);
 	}
 
 	void Application::Teardown()
 	{
+		OnQuit();
 		SDL_Quit();
 	}
 }
