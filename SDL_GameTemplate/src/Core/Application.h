@@ -29,6 +29,8 @@ namespace core {
 
 		virtual void OnStart() {}	//Initialize game data
 		virtual void OnEvent(SDL_Event* e) {}
+		virtual void OnKeyDown(SDL_KeyboardEvent* e) {}
+		virtual void OnKeyUp(SDL_KeyboardEvent* e) {}
 		virtual void OnUpdate() {}	//Update game data
 		virtual void OnDraw() {}	//Render game objects
 		virtual void OnQuit() {}	//Do any cleanup

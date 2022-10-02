@@ -59,11 +59,18 @@ namespace core {
 
 	void Application::ProcessEvent(SDL_Event* e)
 	{
-		if (e->type == SDL_QUIT) {
+		switch (e->type) {
+		case SDL_QUIT:
 			m_Running = false;
-		}
-		else {
+		case SDL_KEYDOWN:
+			OnKeyDown(&e->key);
+			break;
+		case SDL_KEYUP:
+			OnKeyUp(&e->key);
+			break;
+		default:
 			OnEvent(e);
+			break;
 		}
 	}
 
