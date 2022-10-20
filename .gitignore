@@ -1,8 +1,5 @@
 # CPP
 
-#Exceptions
-!vendor/*
-
 # Prerequisites
 *.d
 
@@ -382,6 +379,10 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+#Exceptions (Include the vendor lib files since those are needed to compile)
+![Vv]endor/*/lib/*.lib
+![Vv]endor/*/lib/*.dll
 
 # OpenCover UI analysis results
 OpenCover/
