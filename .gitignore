@@ -1,5 +1,8 @@
 # CPP
 
+#Exceptions
+!vendor/*
+
 # Prerequisites
 *.d
 
