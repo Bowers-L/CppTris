@@ -13,14 +13,13 @@ namespace core {
 		bool m_Running;
 
 		const char* m_GameTitle;
-		Uint32 m_WindowFlags;
 
 	protected:
 		SDL_Window* m_Window;
-		SDL_Renderer* m_Renderer;
+		//SDL_Renderer* m_Renderer;
 
 	public:
-		Application(const char* gameTitle, Uint32 windowFlags);
+		Application(const char* gameTitle);
 
 		int Run();	//Called by main when the application starts up. Contains the main game loop.
 

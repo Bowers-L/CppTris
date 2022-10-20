@@ -9,7 +9,13 @@
 
 #define ASSERT(x) if (!(x)) __debugbreak();
 #define SDL_CALL(x)		if (x < 0) {\
-							SDLLogCall(__FILE__, __LINE__);\
+							SDLLogError(__FILE__, __LINE__);\
 						};
 
-void SDLLogCall(const char* file, int line);
+#define GL_CALL(x)		GLClearError();\
+						x;\
+						ASSERT(GLLogCall(#x, __FILE__, __LINE__))
+
+void SDLLogError(const char* file, int line);
+bool GLLogCall(const char* function, const char* file, int line);
+void GLClearError();

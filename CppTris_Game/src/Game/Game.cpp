@@ -6,11 +6,11 @@
 using namespace input;
 
 core::Application* CreateApp() {
-	return new game::Game("CppTris", SDL_WINDOW_OPENGL);
+	return new game::Game("CppTris");
 }
 
 namespace game {
-	Game::Game(const char* title, Uint32 flags) : Application(title, flags), m_Player(200, 200, 1, 1), m_Input(), m_PlayerVx(6), m_PlayerVy(6) {
+	Game::Game(const char* title) : Application(title), m_Player(200, 200, 1, 1), m_Input(), m_PlayerVx(6), m_PlayerVy(6) {
 		m_Input.up = 0;
 		m_Input.down = 0;
 		m_Input.left = 0;
@@ -19,8 +19,8 @@ namespace game {
 
 	void Game::OnStart() {
 		DEBUG_LOG("Starting the Game");
-		SDL_Texture* playerTex = texture::LoadTexture(m_Renderer, "Assets/Sprites/Temp_DOGGO.bmp");
-		m_Player.SetTex(playerTex);
+		//SDL_Texture* playerTex = texture::LoadTexture(m_Renderer, "Assets/Sprites/Temp_DOGGO.bmp");
+		//m_Player.SetTex(playerTex);
 	}
 
 	void Game::OnKeyDown(SDL_KeyboardEvent* e)
@@ -82,10 +82,9 @@ namespace game {
 
 	void Game::OnDraw() {
 		//m_Player.Draw(m_Renderer);
-		SDL_SetRenderDrawColor(m_Renderer, 255, 0, 0, 255);
-		core::drawCircle(m_Renderer, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 100);
-		SDL_SetRenderDrawColor(m_Renderer, 0, 0, 255, 255);
-		SDL_RenderDrawRect(m_Renderer, SDL_Rect())
-		core::drawRect(m_Renderer, SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, 50, 100);
+		//SDL_SetRenderDrawColor(m_Renderer, 255, 0, 0, 255);
+		//core::drawCircle(m_Renderer, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 100);
+		//SDL_SetRenderDrawColor(m_Renderer, 0, 0, 255, 255);
+		//core::drawRect(m_Renderer, SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, 50, 100);
 	}
 }

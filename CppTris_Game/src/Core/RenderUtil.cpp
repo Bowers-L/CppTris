@@ -19,6 +19,11 @@ namespace core {
 	}
 
 	void drawRect(SDL_Renderer* renderer, int x, int y, int width, int height) {
-
+		SDL_Rect rect;
+		rect.x = x;
+		rect.y = y;
+		rect.w = width;
+		rect.h = height;
+		SDL_RenderDrawRect(renderer, &rect);
 	}
 }

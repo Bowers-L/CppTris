@@ -48,7 +48,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
-    <IncludePath>$(SolutionDir)vendor\SDL2-2.24.0\include;$(ProjectDir)src\;$(SolutionDir)vendor\SDL2_image-2.6.2\include;$(SolutionDir)vendor\glm-master\glm;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)vendor\SDL2-2.24.0\include;$(ProjectDir)src\;$(SolutionDir)vendor\SDL2_image-2.6.2\include;$(SolutionDir)vendor\glm-master\glm;$(SolutionDir)vendor\glad\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -97,6 +97,7 @@
     <ClCompile Include="src\Core\Texture.cpp" />
     <ClCompile Include="src\Game\SpriteObj.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Vendor\glad.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\GameObj.h" />

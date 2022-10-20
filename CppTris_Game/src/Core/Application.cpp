@@ -1,15 +1,55 @@
 #include "Application.h"
+#include "Log.h"
 
+#include <glad/glad.h>
 #include <iostream>
+
 
 namespace core {
 
-	Application::Application(const char* gameTitle, Uint32 windowFlags) : 
+	Application::Application(const char* gameTitle) : 
 		m_GameTitle(gameTitle), 
-		m_WindowFlags(windowFlags), 
 		m_Running(false), 
-		m_Window(nullptr), 
-		m_Renderer(nullptr) {}
+		m_Window(nullptr) {}
+
+	bool Application::Startup()
+	{
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+
+		if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
+			SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_ERROR, "Could not initialize SDL: %s", SDL_GetError());
+			return false;
+		}
+
+		m_Window = SDL_CreateWindow(m_GameTitle, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+			SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+		if (m_Window == NULL) {
+
+			return false;
+		}
+		
+		SDL_GLContext glContext = SDL_GL_CreateContext(m_Window);
+		if (glContext == NULL) {
+			SDLLogError(__FILE__, __LINE__);
+		}
+
+		if (!gladLoadGLLoader( (GLADloadproc) SDL_GL_GetProcAddress))
+		{
+			std::cout << "Failed to initialize GLAD" << std::endl;
+			return -1;
+		}
+
+		//m_Renderer = SDL_CreateRenderer(m_Window, -1, 0);
+		//if (m_Renderer == NULL) {
+		//	return false;
+		//}
+
+		OnStart();
+
+		return true;
+	}
 
 	int Application::Run() {
 		if (!Startup()) {
@@ -31,30 +71,6 @@ namespace core {
 
 		Teardown();
 		return 0;
-	}
-
-	bool Application::Startup()
-	{
-		if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-			SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_ERROR, "Could not initialize SDL: %s", SDL_GetError());
-			return false;
-		}
-
-		m_Window = SDL_CreateWindow(m_GameTitle, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-			SCREEN_WIDTH, SCREEN_HEIGHT, m_WindowFlags);
-		if (m_Window == NULL) {
-
-			return false;
-		}
-
-		m_Renderer = SDL_CreateRenderer(m_Window, -1, 0);
-		if (m_Renderer == NULL) {
-			return false;
-		}
-
-		OnStart();
-
-		return true;
 	}
 
 	void Application::ProcessEvent(SDL_Event* e)
@@ -81,12 +97,16 @@ namespace core {
 
 	void Application::Render()
 	{
-		SDL_SetRenderDrawColor(m_Renderer, 128, 128, 128, 255);
-		SDL_RenderClear(m_Renderer);
+		//SDL_SetRenderDrawColor(m_Renderer, 128, 128, 128, 255);
+		//SDL_RenderClear(m_Renderer);
+
+		GL_CALL(glClearColor(0.5f, 0.5f, 0.5f, 1.0f));
+		GL_CALL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 
 		OnDraw();
 
-		SDL_RenderPresent(m_Renderer);
+		SDL_GL_SwapWindow(m_Window);
+		//SDL_RenderPresent(m_Renderer);
 	}
 
 	void Application::Teardown()

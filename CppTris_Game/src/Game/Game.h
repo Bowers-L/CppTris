@@ -15,7 +15,7 @@ namespace game {
 
 		int m_PlayerVx, m_PlayerVy;
 	public:
-		Game(const char* title, Uint32 flags);
+		Game(const char* title);
 		void OnStart();	//Initialize game data
 		//void OnEvent(SDL_Event* e);
 		void OnKeyDown(SDL_KeyboardEvent* e);
