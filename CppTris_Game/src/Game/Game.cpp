@@ -84,5 +84,8 @@ namespace game {
 		//m_Player.Draw(m_Renderer);
 		SDL_SetRenderDrawColor(m_Renderer, 255, 0, 0, 255);
 		core::drawCircle(m_Renderer, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 100);
+		SDL_SetRenderDrawColor(m_Renderer, 0, 0, 255, 255);
+		SDL_RenderDrawRect(m_Renderer, SDL_Rect())
+		core::drawRect(m_Renderer, SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, 50, 100);
 	}
 }

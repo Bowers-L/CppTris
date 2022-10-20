@@ -1,5 +1,7 @@
 #pragma once
 
+#include <glm.hpp>
+
 #include "Application.h"
 #include "Input.h"
 #include "Log.h"

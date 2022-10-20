@@ -17,4 +17,8 @@ namespace core {
 			}
 		}
 	}
+
+	void drawRect(SDL_Renderer* renderer, int x, int y, int width, int height) {
+
+	}
 }
