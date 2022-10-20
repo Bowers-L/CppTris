@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppTris_Game", "CppTris_Game/CppTris_Game.vcxproj", "{E237D1DB-A0AF-430D-B816-A96A5E07B3AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E237D1DB-A0AF-430D-B816-A96A5E07B3AA}.Debug|x64.ActiveCfg = Debug|x64
+		{E237D1DB-A0AF-430D-B816-A96A5E07B3AA}.Debug|x64.Build.0 = Debug|x64
+		{E237D1DB-A0AF-430D-B816-A96A5E07B3AA}.Release|x64.ActiveCfg = Release|x64
+		{E237D1DB-A0AF-430D-B816-A96A5E07B3AA}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {76495DD7-E933-4F58-9316-3FC751206A07}
+	EndGlobalSection
+EndGlobal
