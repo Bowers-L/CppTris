@@ -6,7 +6,7 @@
 using namespace input;
 
 core::Application* CreateApp() {
-	return new game::Game("My Game", SDL_WINDOW_OPENGL);
+	return new game::Game("CppTris", SDL_WINDOW_OPENGL);
 }
 
 namespace game {
@@ -81,6 +81,8 @@ namespace game {
 	}
 
 	void Game::OnDraw() {
-		m_Player.Draw(m_Renderer);
+		//m_Player.Draw(m_Renderer);
+		SDL_SetRenderDrawColor(m_Renderer, 255, 0, 0, 255);
+		core::drawCircle(m_Renderer, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 100);
 	}
 }
