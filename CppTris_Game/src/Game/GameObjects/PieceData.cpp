@@ -1,27 +1,4 @@
-#pragma once
-
-#include <unordered_map>
-
-enum class PieceType {
-    T,
-    S,
-    Z,
-    I,
-    J,
-    L,
-    O
-};
-
-struct PieceData {
-    //4 orientations of a 4x4 grid describing the location of each block in the piece.
-    char m_BlockGridPositions[4][16];
-
-    //PieceData(bool blockLocations[4][16]) {
-    //    m_BlockLocations = blockLocations;
-    //}
-};
-
-//I used global variables, I'm sorry.
+#include "PieceData.h"
 
 const static PieceData tPieceData = PieceData{ {
     {

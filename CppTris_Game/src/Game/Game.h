@@ -2,15 +2,15 @@
 
 #include "Engine/Core.h"
 
+#include "GameObjects/Grid.h"
 #include "GameObjects/Piece.h"
-
-#define SQRTWO 0.707
 
 namespace game {
 	class Game : public core::Application
 	{
 	private:
-		Piece* m_Player;
+		Grid* m_Grid;
+		Piece* m_CurrentPiece;
 		input::Input m_Input;
 
 		int m_PlayerVx, m_PlayerVy;

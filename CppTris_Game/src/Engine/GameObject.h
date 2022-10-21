@@ -24,5 +24,7 @@ public:
 	virtual void draw() {}
 	virtual void onDestroy() {}
 
+	virtual Shader* getShader();
+
 	glm::vec3& position();
 };
