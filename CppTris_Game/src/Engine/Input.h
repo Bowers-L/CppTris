@@ -6,5 +6,7 @@ namespace input {
 		int down;
 		int left;
 		int right;
+		int z;
+		int x;
 	} Input;
 }

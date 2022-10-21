@@ -27,6 +27,8 @@ namespace game {
 		m_Input.down = 0;
 		m_Input.left = 0;
 		m_Input.right = 0;
+		m_Input.z = 0;
+		m_Input.x = 0;
 	}
 
 	void Game::OnStart() {
@@ -59,14 +61,22 @@ namespace game {
 				m_Input.down = 1;
 				break;
 			case SDL_SCANCODE_LEFT:
-				m_DasTimer = DELAYED_AUTO_SHIFT_FRAME_DELAY;
 				m_Input.left = 1;
+				m_DasTimer = DELAYED_AUTO_SHIFT_FRAME_DELAY;
 				m_CurrentPiece->movePosOnGrid(m_Grid, 0, m_Input.right - m_Input.left);
 				break;
 			case SDL_SCANCODE_RIGHT:
-				m_DasTimer = DELAYED_AUTO_SHIFT_FRAME_DELAY;
 				m_Input.right = 1;
+				m_DasTimer = DELAYED_AUTO_SHIFT_FRAME_DELAY;
 				m_CurrentPiece->movePosOnGrid(m_Grid, 0, m_Input.right - m_Input.left);
+				break;
+			case SDL_SCANCODE_Z:
+				m_Input.z = 1;
+				m_CurrentPiece->rotateCCW();
+				break;
+			case SDL_SCANCODE_X:
+				m_Input.x = 1;
+				m_CurrentPiece->rotateCW();
 				break;
 			default:
 				break;
@@ -89,6 +99,12 @@ namespace game {
 				break;
 			case SDL_SCANCODE_RIGHT:
 				m_Input.right = 0;
+				break;
+			case SDL_SCANCODE_Z:
+				m_Input.z = 0;
+				break;
+			case SDL_SCANCODE_X:
+				m_Input.x = 0;
 				break;
 			default:
 				break;

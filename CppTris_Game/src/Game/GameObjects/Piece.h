@@ -16,7 +16,7 @@ private:
 
 	int gridRow, gridCol;
 	PieceType m_PieceType;
-	unsigned int m_Orientation;
+	int m_Orientation;
 public:
 	Piece(PieceType type, int x, int y);
 	Piece(PieceType type);
@@ -26,6 +26,8 @@ public:
 
 	void setPosOnGrid(Grid* grid, int row, int col);
 	void movePosOnGrid(Grid* grid, int dRow, int dCol);
+	void rotateCW();
+	void rotateCCW();
 
 	static void setRNG();
 	static PieceType getRandomPieceType();

@@ -32,7 +32,7 @@ void Piece::draw() {
 	for (int row = 0; row < PIECE_GRID_SIZE; row++) {
 		for (int col = 0; col < PIECE_GRID_SIZE; col++) {
 			int index = row * PIECE_GRID_SIZE + col;
-			char blockAtIndex = data.m_BlockGridPositions[0][index];
+			char blockAtIndex = data.m_BlockGridPositions[m_Orientation][index];
 
 			if (blockAtIndex) {
 				int blockXPos = m_Position.x + (col - PIECE_CENTER_COL) * BLOCK_SIZE;
@@ -61,6 +61,18 @@ void Piece::movePosOnGrid(Grid* grid, int dRow, int dCol)
 {
 	m_Position.x += dCol * BLOCK_SIZE;
 	m_Position.y += dRow * BLOCK_SIZE;
+}
+
+void Piece::rotateCW() 
+{
+	m_Orientation = (m_Orientation + 1) % 4;
+}
+
+void Piece::rotateCCW() {
+	m_Orientation = m_Orientation - 1;
+	if (m_Orientation < 0) {
+		m_Orientation = 3;
+	}
 }
 
 PieceType Piece::getRandomPieceType() {
