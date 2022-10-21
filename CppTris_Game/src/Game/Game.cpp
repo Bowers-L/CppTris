@@ -81,29 +81,13 @@ namespace game {
 	}
 
 	void Game::OnDraw() {
-		//The Data to Render
-		float vertices[] = { -1.0f, -1.0f, 0.0f,
-									0.0f, 1.0f, 0.0f,
-									1.0f, -1.0f, 0.0f
-		};
-
-		unsigned int indices[] = { 0, 1, 2 };
-
-		//Create vertex array with data
-		VertexArray vao;
-		VertexBuffer vbo(vertices, 9 * sizeof(GL_FLOAT), GL_STATIC_DRAW);
-		VertexBufferLayout vbLayout;
-		vbLayout.push<float>(3);
-		vao.addBuffer(vbo, vbLayout);
-
-		//Create Index Buffer
-		IndexBuffer ibo(indices, 3, GL_STATIC_DRAW);
 
 		//Create Shader
 		Shader shader("Assets/Shaders/Basic.shader");
 		shader.setUniformMat4f("u_MVP", glm::mat4(1));
 		shader.setUniform4f("u_Color", 1.f, 0.f, 0.f, 1.f);
 
-		m_Renderer.draw(vao, ibo, shader);
+		m_Renderer.setShader(shader);
+		m_Renderer.drawRect(SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 - 50, 100, 100);
 	}
 }

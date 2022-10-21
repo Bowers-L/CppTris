@@ -11,7 +11,7 @@ namespace core {
 		m_GameTitle(gameTitle), 
 		m_Running(false), 
 		m_Window(nullptr),
-		m_Renderer(Renderer())
+		m_Renderer(Renderer(SCREEN_WIDTH, SCREEN_HEIGHT))
 	{}
 
 	bool Application::Startup()

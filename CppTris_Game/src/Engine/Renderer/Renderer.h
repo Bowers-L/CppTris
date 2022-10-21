@@ -16,9 +16,22 @@ void GLClearError();
 bool GLLogCall(const char* function, const char* file, int line);
 
 class Renderer {
+private:
+	int m_Width, m_Height;
+	const Shader* m_Shader;
 public :
-	static void clear();
-	static void setClearColor(float r, float g, float b, float a);
+	//Pass in the width and height of the window.
+	Renderer(int width, int height);
 
-	static void draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader);
+	//OpenGL Coords are normalized btw -1 and 1, so we need to have a way to normalize pixel coordinates on the screen
+	float pixelToNormX(int x);
+	float pixelToNormY(int y);
+
+	void clear();
+	void setClearColor(float r, float g, float b, float a);
+	void setShader(const Shader& shader);
+
+	void drawRect(int x, int y, int w, int h);	
+	void draw(const VertexArray& va, const IndexBuffer& ib);
+	void draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader);
 };

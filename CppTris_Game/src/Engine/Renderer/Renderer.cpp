@@ -3,8 +3,26 @@
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 
-#define WIDTH 640
-#define HEIGHT 480
+Renderer::Renderer(int width, int height) :
+m_Width(width), m_Height(height), m_Shader(nullptr)
+{
+}
+
+
+
+float Renderer::pixelToNormX(int x)
+{
+	return (float) x / m_Width * 2 - 1;
+}
+
+float Renderer::pixelToNormY(int y)
+{
+	return -( (float) y / m_Height * 2 - 1);
+}
+
+void Renderer::setShader(const Shader& shader) {
+	m_Shader = &shader;
+}
 
 void Renderer::clear() {
 	GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
@@ -13,6 +31,57 @@ void Renderer::clear() {
 void Renderer::setClearColor(float r, float g, float b, float a)
 {
 	GLCall(glClearColor(r, g, b, a));
+}
+
+void Renderer::drawRect(int x, int y, int w, int h) 
+{
+	if (m_Shader == nullptr) {
+		DEBUG_LOG_ERROR("Renderer must have shader set.");
+		return;
+	}
+
+	float nx = pixelToNormX(x);
+	float ny = pixelToNormY(y);
+	float nxw = pixelToNormX(x + w);
+	float nyh = pixelToNormY(y + h);
+
+	DEBUG_LOG("PIXEL POINTS: %d, %d, %d, %d", x, y, w, h);
+	DEBUG_LOG("POINTS: %f, %f, %f, %f", nx, ny, nxw, nyh);
+	float vertices[] = {	nx, ny, 0.0f,
+							nxw, ny, 0.0f,
+							nx, nyh, 0.0f,
+							nxw, nyh, 0.0f,
+	};
+
+	//float vertices[] = { -0.5f, -0.5f, 0.0f,
+	//						0.5f, -0.5f, 0.0f,
+	//						-0.5f, 0.5f, 0.0f,
+	//						0.5f, 0.5f, 0.0f,
+	//};
+
+	unsigned int indices[] = {	0, 1, 2,
+								2, 3, 1 };
+
+	//Create vertex array with data
+	VertexArray vao;
+	VertexBuffer vbo(vertices, 4 * 3 * sizeof(GL_FLOAT), GL_STATIC_DRAW);
+	VertexBufferLayout vbLayout;
+	vbLayout.push<float>(3);
+	vao.addBuffer(vbo, vbLayout);
+
+	//Create Index Buffer
+	IndexBuffer ibo(indices, 6, GL_STATIC_DRAW);
+
+	draw(vao, ibo);
+}
+
+void Renderer::draw(const VertexArray& va, const IndexBuffer& ib) {
+	if (m_Shader == nullptr) {
+		DEBUG_LOG_ERROR("Renderer must have shader set.");
+		return;
+	}
+
+	draw(va, ib, *m_Shader);
 }
 
 void Renderer::draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader)
