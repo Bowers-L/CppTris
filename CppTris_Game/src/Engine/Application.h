@@ -21,7 +21,6 @@ namespace core {
 		std::vector<GameObject*> m_GameObjects;
 	protected:
 		SDL_Window* m_Window;
-		//SDL_Renderer* m_Renderer;
 
 	public:
 		Application(const char* gameTitle);

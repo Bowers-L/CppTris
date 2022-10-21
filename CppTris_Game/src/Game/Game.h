@@ -2,7 +2,7 @@
 
 #include "Engine/Core.h"
 
-#include "SpriteObj.h"
+#include "GameObjects/Piece.h"
 
 #define SQRTWO 0.707
 
@@ -10,7 +10,7 @@ namespace game {
 	class Game : public core::Application
 	{
 	private:
-		SpriteObj m_Player;
+		Piece* m_Player;
 		input::Input m_Input;
 
 		int m_PlayerVx, m_PlayerVy;

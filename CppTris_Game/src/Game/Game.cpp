@@ -1,6 +1,8 @@
 #include "Game.h"
 #include "Engine/Core.h"
 
+#include "GameObjects/Piece.h"
+
 #include <glm/glm.hpp>
 
 using namespace input;
@@ -10,7 +12,13 @@ core::Application* CreateApp() {
 }
 
 namespace game {
-	Game::Game(const char* title) : Application(title), m_Player(200, 200, 1, 1), m_Input(), m_PlayerVx(6), m_PlayerVy(6) {
+	Game::Game(const char* title) : 
+		Application(title), 
+		m_Player(new Piece(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)), 
+		m_Input(), 
+		m_PlayerVx(6), 
+		m_PlayerVy(6) 
+	{
 		m_Input.up = 0;
 		m_Input.down = 0;
 		m_Input.left = 0;
@@ -19,8 +27,7 @@ namespace game {
 
 	void Game::OnStart() {
 		DEBUG_LOG("Starting the Game");
-		//SDL_Texture* playerTex = texture::LoadTexture(m_Renderer, "Assets/Sprites/Temp_DOGGO.bmp");
-		//m_Player.SetTex(playerTex);
+		Instantiate(m_Player);
 	}
 
 	void Game::OnKeyDown(SDL_KeyboardEvent* e)
@@ -71,23 +78,16 @@ namespace game {
 		int dx = m_Input.right - m_Input.left;
 		int dy = m_Input.down - m_Input.up;
 		if (dx != 0 && dy != 0) {
-			m_Player.x += (int) ((float) (dx * m_PlayerVx) * SQRTWO);
-			m_Player.y += (int) ((float) (dy * m_PlayerVy) * SQRTWO);
+			m_Player->position().x += (int)((float)(dx * m_PlayerVx) * SQRTWO);
+			m_Player->position().y += (int)((float)(dy * m_PlayerVy) * SQRTWO);
 		}
 		else {
-			m_Player.x += dx * m_PlayerVx;
-			m_Player.y += dy * m_PlayerVy;
+			m_Player->position().x += dx * m_PlayerVx;
+			m_Player->position().y += dy * m_PlayerVy;
 		}
 	}
 
 	void Game::OnDraw() {
 
-		//Create Shader
-		Shader shader("Assets/Shaders/Basic.shader");
-		shader.setUniformMat4f("u_MVP", glm::mat4(1));
-		shader.setUniform4f("u_Color", 1.f, 0.f, 0.f, 1.f);
-
-		Renderer::setShader(shader);
-		Renderer::drawRect(SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 - 50, 100, 100);
 	}
 }

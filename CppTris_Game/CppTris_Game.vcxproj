@@ -89,7 +89,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Game\GameObjects\Block.cpp" />
     <ClCompile Include="src\Game\GameObjects\Grid.cpp" />
     <ClCompile Include="src\Game\GameObjects\Piece.cpp" />
     <ClCompile Include="src\Engine\GameObject.cpp" />
@@ -108,7 +107,6 @@
     <ClCompile Include="src\Vendor\glad.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Game\GameObjects\Block.h" />
     <ClInclude Include="src\Game\GameObjects\Grid.h" />
     <ClInclude Include="src\Game\GameObjects\Piece.h" />
     <ClInclude Include="src\Engine\GameObject.h" />
@@ -126,6 +124,7 @@
     <ClInclude Include="src\Engine\Application.h" />
     <ClInclude Include="src\Engine\Texture.h" />
     <ClInclude Include="src\Engine\Input.h" />
+    <ClInclude Include="src\Game\PieceData.h" />
     <ClInclude Include="src\Game\SpriteObj.h" />
     <ClInclude Include="src\Game\TileMap.h" />
   </ItemGroup>
