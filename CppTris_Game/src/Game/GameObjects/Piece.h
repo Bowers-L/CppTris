@@ -14,6 +14,7 @@ class Piece : public GameObject
 private:
 	static std::mt19937_64 s_RNG;
 
+	int gridRow, gridCol;
 	PieceType m_PieceType;
 	unsigned int m_Orientation;
 public:

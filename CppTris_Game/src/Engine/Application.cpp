@@ -141,9 +141,11 @@ namespace core {
 
 	void Application::Destroy(GameObject* object) 
 	{
-		for (int i = 0; i < m_GameObjects.size(); i++) {
-			if (m_GameObjects[i] == object) {
-				delete m_GameObjects[i];
+		for (auto it = m_GameObjects.begin(); it != m_GameObjects.end(); it++) {
+			if (*it == object) {
+				GameObject* go = *it;
+				m_GameObjects.erase(it);
+				delete go;
 				break;
 			}
 		}

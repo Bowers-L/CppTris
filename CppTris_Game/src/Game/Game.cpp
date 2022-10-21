@@ -18,7 +18,10 @@ namespace game {
 		m_Input(), 
 		m_PlayerVx(6), 
 		m_PlayerVy(6),
-		m_CurrLevelSpeed(10)
+		m_CurrLevelSpeed(10),
+		m_CurrentPiece(nullptr),
+		m_DropTimer(0),
+		m_DasTimer(0)
 	{
 		m_Input.up = 0;
 		m_Input.down = 0;
@@ -33,14 +36,20 @@ namespace game {
 		Instantiate(m_Grid);
 
 		Piece::setRNG();
-		m_CurrentPiece = new Piece(Piece::getRandomPieceType(), GRID_OFFSET_X + 5*BLOCK_SIZE, GRID_OFFSET_Y);
-		Instantiate(m_CurrentPiece);
+		spawnNextPiece();
 
 		m_DropTimer = m_CurrLevelSpeed;
 	}
 
+	void Game::spawnNextPiece() {
+		Destroy(m_CurrentPiece);
+		m_CurrentPiece = new Piece(Piece::getRandomPieceType(), GRID_OFFSET_X + 5 * BLOCK_SIZE, GRID_OFFSET_Y);
+		Instantiate(m_CurrentPiece);
+	}
+
 	void Game::OnKeyDown(SDL_KeyboardEvent* e)
 	{
+
 		if (e->repeat == 0) {
 			switch (e->keysym.scancode) {
 			case SDL_SCANCODE_UP:
@@ -50,10 +59,14 @@ namespace game {
 				m_Input.down = 1;
 				break;
 			case SDL_SCANCODE_LEFT:
+				m_DasTimer = DELAYED_AUTO_SHIFT_FRAME_DELAY;
 				m_Input.left = 1;
+				m_CurrentPiece->movePosOnGrid(m_Grid, 0, m_Input.right - m_Input.left);
 				break;
 			case SDL_SCANCODE_RIGHT:
+				m_DasTimer = DELAYED_AUTO_SHIFT_FRAME_DELAY;
 				m_Input.right = 1;
+				m_CurrentPiece->movePosOnGrid(m_Grid, 0, m_Input.right - m_Input.left);
 				break;
 			default:
 				break;
@@ -85,14 +98,34 @@ namespace game {
 
 	void Game::OnUpdate() {
 		int dx = m_Input.right - m_Input.left;
-		m_CurrentPiece->position().x += dx * m_PlayerVx;
 		
+		UpdateDrop();
+		UpdateDas();
+
+		if (m_CurrentPiece->position().y > SCREEN_HEIGHT) {
+			spawnNextPiece();
+		}
+	}
+
+	void Game::UpdateDrop() {
 		if (m_DropTimer <= 0) {
 			m_CurrentPiece->movePosOnGrid(m_Grid, 1, 0);
 			m_DropTimer = m_CurrLevelSpeed;
 		}
 		else {
 			m_DropTimer--;
+		}
+	}
+
+	void Game::UpdateDas() {
+		if (m_Input.left || m_Input.right) {
+			if (m_DasTimer <= 0) {
+				m_CurrentPiece->movePosOnGrid(m_Grid, 0, m_Input.right - m_Input.left);
+				m_DasTimer = AUTO_SHIFT_FRAME_DELAY;
+			}
+			else {
+				m_DasTimer--;
+			}
 		}
 	}
 

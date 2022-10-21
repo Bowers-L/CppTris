@@ -5,6 +5,9 @@
 #include "GameObjects/Grid.h"
 #include "GameObjects/Piece.h"
 
+#define DELAYED_AUTO_SHIFT_FRAME_DELAY 16
+#define AUTO_SHIFT_FRAME_DELAY 6
+
 namespace game {
 	class Game : public core::Application
 	{
@@ -15,9 +18,12 @@ namespace game {
 
 		int m_PlayerVx, m_PlayerVy;
 		int m_CurrLevelSpeed;
+
 		int m_DropTimer;
+		int m_DasTimer;
 	public:
 		Game(const char* title);
+
 		void OnStart();	//Initialize game data
 		//void OnEvent(SDL_Event* e);
 		void OnKeyDown(SDL_KeyboardEvent* e);
@@ -25,5 +31,10 @@ namespace game {
 		void OnUpdate();	//Update game data
 		void OnDraw();	//Render game objects
 		//void OnQuit();	//Do any cleanup
+
+		void spawnNextPiece();
+	private:
+		void UpdateDrop();
+		void UpdateDas();
 	};
 }

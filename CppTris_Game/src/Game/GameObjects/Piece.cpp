@@ -70,5 +70,5 @@ PieceType Piece::getRandomPieceType() {
 }
 
 void Piece::setRNG() {
-	s_RNG.seed(std::time(NULL)+1);
+	s_RNG.seed(std::time(NULL));
 }
