@@ -14,6 +14,8 @@ namespace game {
 		input::Input m_Input;
 
 		int m_PlayerVx, m_PlayerVy;
+		int m_CurrLevelSpeed;
+		int m_DropTimer;
 	public:
 		Game(const char* title);
 		void OnStart();	//Initialize game data
