@@ -7,12 +7,35 @@
 
 namespace core {
 
-	Application::Application(const char* gameTitle) : 
-		m_GameTitle(gameTitle), 
-		m_Running(false), 
-		m_Window(nullptr),
-		m_Renderer(Renderer(SCREEN_WIDTH, SCREEN_HEIGHT))
-	{}
+	Application::Application(const char* gameTitle) :
+		m_GameTitle(gameTitle),
+		m_Running(false),
+		m_Window(nullptr)
+	{
+		Renderer::CreateInstance(SCREEN_WIDTH, SCREEN_HEIGHT);
+	}
+
+	int Application::Run() {
+		if (!Startup()) {
+			return -1;
+		}
+
+		m_Running = true;
+		while (m_Running) {
+			SDL_Event e;
+			while (SDL_PollEvent(&e)) {
+				ProcessEvent(&e);
+			}
+
+			Update();
+			Render();
+
+			SDL_Delay(FRAME_DELAY);	//Lock the framerate at 62.5 fps
+		}
+
+		Teardown();
+		return 0;
+	}
 
 	bool Application::Startup()
 	{
@@ -53,28 +76,6 @@ namespace core {
 		return true;
 	}
 
-	int Application::Run() {
-		if (!Startup()) {
-			return -1;
-		}
-
-		m_Running = true;
-		while (m_Running) {
-			SDL_Event e;
-			while (SDL_PollEvent(&e)) {
-				ProcessEvent(&e);
-			}
-
-			Update();
-			Render();
-
-			SDL_Delay(FRAME_DELAY);	//Lock the framerate at 62.5 fps
-		}
-
-		Teardown();
-		return 0;
-	}
-
 	void Application::ProcessEvent(SDL_Event* e)
 	{
 		switch (e->type) {
@@ -94,6 +95,12 @@ namespace core {
 
 	void Application::Update()
 	{
+		//There's probably a C++20 way to do this, but I forgot.
+		for (auto it = m_GameObjects.begin(); it != m_GameObjects.end(); it++) {
+			GameObject* object = *it;
+			object->update();
+		}
+
 		OnUpdate();
 	}
 
@@ -105,6 +112,11 @@ namespace core {
 		GL_CALL(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
 		GL_CALL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 
+		for (auto it = m_GameObjects.begin(); it != m_GameObjects.end(); it++) {
+			GameObject* object = *it;
+			object->draw();
+		}
+
 		OnDraw();
 
 		SDL_GL_SwapWindow(m_Window);
@@ -113,7 +125,27 @@ namespace core {
 
 	void Application::Teardown()
 	{
+		for (auto it = m_GameObjects.begin(); it != m_GameObjects.end(); it++) {
+			delete *it;
+		}
+		m_GameObjects.clear();
+
 		OnQuit();
 		SDL_Quit();
+	}
+
+	void Application::Instantiate(GameObject* object)
+	{
+		m_GameObjects.push_back(object);
+	}
+
+	void Application::Destroy(GameObject* object) 
+	{
+		for (int i = 0; i < m_GameObjects.size(); i++) {
+			if (m_GameObjects[i] == object) {
+				delete m_GameObjects[i];
+				break;
+			}
+		}
 	}
 }

@@ -3,61 +3,65 @@
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 
+Renderer* Renderer::s_Instance = nullptr;
+
 Renderer::Renderer(int width, int height) :
 m_Width(width), m_Height(height), m_Shader(nullptr)
 {
+	if (s_Instance == nullptr) {
+		s_Instance = this;
+	}
+	else {
+		DEBUG_LOG_WARNING("Renderer is a singleton, but there was an attempt to construct it twice.");
+	}
 }
 
-
+void Renderer::CreateInstance(int width, int height) {
+	s_Instance = new Renderer(width, height);
+}
 
 float Renderer::pixelToNormX(int x)
 {
-	return (float) x / m_Width * 2 - 1;
+	return (float) x / s_Instance->m_Width * 2 - 1;
 }
 
 float Renderer::pixelToNormY(int y)
 {
-	return -( (float) y / m_Height * 2 - 1);
+	return -( (float) y / s_Instance->m_Height * 2 - 1);
 }
 
 void Renderer::setShader(const Shader& shader) {
-	m_Shader = &shader;
+	s_Instance->m_Shader = &shader;
 }
 
 void Renderer::clear() {
-	GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+	GL_CALL(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 }
 
 void Renderer::setClearColor(float r, float g, float b, float a)
 {
-	GLCall(glClearColor(r, g, b, a));
+	GL_CALL(glClearColor(r, g, b, a));
 }
 
-void Renderer::drawRect(int x, int y, int w, int h) 
+void Renderer::drawRect(int x, int y, int width, int height) 
 {
-	if (m_Shader == nullptr) {
+	if (s_Instance->m_Shader == nullptr) {
 		DEBUG_LOG_ERROR("Renderer must have shader set.");
 		return;
 	}
 
-	float nx = pixelToNormX(x);
-	float ny = pixelToNormY(y);
-	float nxw = pixelToNormX(x + w);
-	float nyh = pixelToNormY(y + h);
+	float normX = pixelToNormX(x);
+	float normY = pixelToNormY(y);
+	float normXPlusWidth = pixelToNormX(x + width);
+	float normYPlusHeight = pixelToNormY(y + height);
 
 	//DEBUG_LOG("PIXEL POINTS: %d, %d, %d, %d", x, y, w, h);
 	//DEBUG_LOG("POINTS: %f, %f, %f, %f", nx, ny, nxw, nyh);
-	float vertices[] = {	nx, ny, 0.0f,
-							nxw, ny, 0.0f,
-							nx, nyh, 0.0f,
-							nxw, nyh, 0.0f,
+	float vertices[] = {	normX, normY, 0.0f,
+							normXPlusWidth, normY, 0.0f,
+							normX, normYPlusHeight, 0.0f,
+							normXPlusWidth, normYPlusHeight, 0.0f,
 	};
-
-	//float vertices[] = { -0.5f, -0.5f, 0.0f,
-	//						0.5f, -0.5f, 0.0f,
-	//						-0.5f, 0.5f, 0.0f,
-	//						0.5f, 0.5f, 0.0f,
-	//};
 
 	unsigned int indices[] = {	0, 1, 2,
 								2, 3, 1 };
@@ -76,12 +80,12 @@ void Renderer::drawRect(int x, int y, int w, int h)
 }
 
 void Renderer::draw(const VertexArray& va, const IndexBuffer& ib) {
-	if (m_Shader == nullptr) {
+	if (s_Instance->m_Shader == nullptr) {
 		DEBUG_LOG_ERROR("Renderer must have shader set.");
 		return;
 	}
 
-	draw(va, ib, *m_Shader);
+	draw(va, ib, *(s_Instance->m_Shader));
 }
 
 void Renderer::draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader)
@@ -90,7 +94,7 @@ void Renderer::draw(const VertexArray& va, const IndexBuffer& ib, const Shader& 
 	ib.bind();
 	shader.bind();
 
-	GLCall(glDrawElements(GL_TRIANGLES, ib.getCount(), GL_UNSIGNED_INT, nullptr));
+	GL_CALL(glDrawElements(GL_TRIANGLES, ib.getCount(), GL_UNSIGNED_INT, nullptr));
 
 	shader.unbind();
 	ib.unbind();

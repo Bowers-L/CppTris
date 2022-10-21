@@ -8,30 +8,30 @@
 
 #include "Shader.h"
 
-#define GLCall(x) GLClearError();\
-	x;\
-	ASSERT(GLLogCall(#x, __FILE__, __LINE__))
-
-void GLClearError();
-bool GLLogCall(const char* function, const char* file, int line);
-
+//Renderer is a singleton
 class Renderer {
 private:
+	static Renderer* s_Instance;
+
 	int m_Width, m_Height;
 	const Shader* m_Shader;
+
+	Renderer(int windowWidth, int windowHeight);
 public :
-	//Pass in the width and height of the window.
-	Renderer(int width, int height);
+	Renderer(Renderer& other) = delete;
+	void operator=(const Renderer&) = delete;
+
+	static void CreateInstance(int width, int height);
 
 	//OpenGL Coords are normalized btw -1 and 1, so we need to have a way to normalize pixel coordinates on the screen
-	float pixelToNormX(int x);
-	float pixelToNormY(int y);
+	static float pixelToNormX(int x);
+	static float pixelToNormY(int y);
 
-	void clear();
-	void setClearColor(float r, float g, float b, float a);
-	void setShader(const Shader& shader);
+	static void clear();
+	static void setClearColor(float r, float g, float b, float a);
+	static void setShader(const Shader& shader);
 
-	void drawRect(int x, int y, int w, int h);	
-	void draw(const VertexArray& va, const IndexBuffer& ib);
-	void draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader);
+	static void drawRect(int x, int y, int width, int height);	
+	static void draw(const VertexArray& va, const IndexBuffer& ib);
+	static void draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader);
 };

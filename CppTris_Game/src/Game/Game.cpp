@@ -87,7 +87,7 @@ namespace game {
 		shader.setUniformMat4f("u_MVP", glm::mat4(1));
 		shader.setUniform4f("u_Color", 1.f, 0.f, 0.f, 1.f);
 
-		m_Renderer.setShader(shader);
-		m_Renderer.drawRect(SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 - 50, 100, 100);
+		Renderer::setShader(shader);
+		Renderer::drawRect(SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 - 50, 100, 100);
 	}
 }

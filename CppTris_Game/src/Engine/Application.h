@@ -1,7 +1,9 @@
 #pragma once
 
 #include <SDL.h>
+#include <vector>
 
+#include "GameObject.h"
 #include "Renderer/Renderer.h"
 
 #define SCREEN_WIDTH 640
@@ -16,9 +18,9 @@ namespace core {
 
 		const char* m_GameTitle;
 
+		std::vector<GameObject*> m_GameObjects;
 	protected:
 		SDL_Window* m_Window;
-		Renderer m_Renderer;
 		//SDL_Renderer* m_Renderer;
 
 	public:
@@ -43,5 +45,8 @@ namespace core {
 		void Render();
 
 		void Teardown();	//Called when application finishes
+
+		void Instantiate(GameObject* object);
+		void Destroy(GameObject* object);
 	};
 }
