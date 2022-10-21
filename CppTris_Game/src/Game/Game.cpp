@@ -1,7 +1,7 @@
 #include "Game.h"
-#include "Core/Core.h"
+#include "Engine/Core.h"
 
-#include <math.h>
+#include <glm/glm.hpp>
 
 using namespace input;
 
@@ -81,10 +81,29 @@ namespace game {
 	}
 
 	void Game::OnDraw() {
-		//m_Player.Draw(m_Renderer);
-		//SDL_SetRenderDrawColor(m_Renderer, 255, 0, 0, 255);
-		//core::drawCircle(m_Renderer, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 100);
-		//SDL_SetRenderDrawColor(m_Renderer, 0, 0, 255, 255);
-		//core::drawRect(m_Renderer, SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, 50, 100);
+		//The Data to Render
+		float vertices[] = { -1.0f, -1.0f, 0.0f,
+									0.0f, 1.0f, 0.0f,
+									1.0f, -1.0f, 0.0f
+		};
+
+		unsigned int indices[] = { 0, 1, 2 };
+
+		//Create vertex array with data
+		VertexArray vao;
+		VertexBuffer vbo(vertices, 9 * sizeof(GL_FLOAT), GL_STATIC_DRAW);
+		VertexBufferLayout vbLayout;
+		vbLayout.push<float>(3);
+		vao.addBuffer(vbo, vbLayout);
+
+		//Create Index Buffer
+		IndexBuffer ibo(indices, 3, GL_STATIC_DRAW);
+
+		//Create Shader
+		Shader shader("Assets/Shaders/Basic.shader");
+		shader.setUniformMat4f("u_MVP", glm::mat4(1));
+		shader.setUniform4f("u_Color", 1.f, 0.f, 0.f, 1.f);
+
+		m_Renderer.draw(vao, ibo, shader);
 	}
 }
