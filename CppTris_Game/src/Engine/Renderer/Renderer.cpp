@@ -45,8 +45,8 @@ void Renderer::drawRect(int x, int y, int w, int h)
 	float nxw = pixelToNormX(x + w);
 	float nyh = pixelToNormY(y + h);
 
-	DEBUG_LOG("PIXEL POINTS: %d, %d, %d, %d", x, y, w, h);
-	DEBUG_LOG("POINTS: %f, %f, %f, %f", nx, ny, nxw, nyh);
+	//DEBUG_LOG("PIXEL POINTS: %d, %d, %d, %d", x, y, w, h);
+	//DEBUG_LOG("POINTS: %f, %f, %f, %f", nx, ny, nxw, nyh);
 	float vertices[] = {	nx, ny, 0.0f,
 							nxw, ny, 0.0f,
 							nx, nyh, 0.0f,
