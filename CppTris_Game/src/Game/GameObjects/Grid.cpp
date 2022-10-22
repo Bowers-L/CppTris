@@ -58,4 +58,49 @@ void Grid::placePiece(Piece* piece, int row, int col) {
 		}
 	}
 
+	clearFullLines();
+}
+
+void Grid::clearFullLines() {
+	bool lineCleared = false;
+	do  {
+		lineCleared = false;
+		for (int gridRow = GRID_NUM_ROWS - 1; gridRow >= 0; gridRow--) {
+			if (lineCleared) {
+				//move the row down
+				moveRowDown(gridRow);
+			}
+			else {
+				lineCleared = checkRowFull(gridRow);
+			}
+		}
+
+		if (lineCleared) {
+			for (int gridCol = 0; gridCol < GRID_NUM_COLS; gridCol++) {
+				m_Blocks[0][gridCol] = 0;
+			}
+		}
+	} while (lineCleared);
+}
+
+void Grid::moveRowDown(int gridRow) {
+	if (gridRow >= GRID_NUM_ROWS - 1) {
+		DEBUG_LOG_WARNING("Couldn't move row down because it was the last row.");
+		return;
+	}
+
+	for (int gridCol = 0; gridCol < GRID_NUM_COLS; gridCol++) {
+		m_Blocks[gridRow + 1][gridCol] = m_Blocks[gridRow][gridCol];
+	}
+}
+
+bool Grid::checkRowFull(int gridRow) {
+	bool rowFull = true;
+	for (int gridCol = 0; gridCol < GRID_NUM_COLS; gridCol++) {
+		if (!m_Blocks[gridRow][gridCol]) {
+			rowFull = false;
+		}
+	}
+
+	return rowFull;
 }

@@ -29,4 +29,10 @@ public:
 	bool isBlockAt(int row, int col);
 
 	void placePiece(Piece* piece, int row, int col);
+
+	void clearFullLines();
+
+private:
+	bool checkRowFull(int gridRow);
+	void moveRowDown(int gridRow);
 };
