@@ -21,16 +21,16 @@ void Piece::update() {
 
 void Piece::draw() {
 	Shader* shader = getShader();
-	shader->setUniform4f("u_Color", 0.0f, 0.0f, 1.0f, 1.0f);
+	shader->setUniform4f("u_Color", 0.0f, 0.0f, 1.0f, 1.0f);	//blue
 	Renderer::setShader(*shader);
 
 	PieceData data = pieceData.at(m_PieceType);
-	for (int row = 0; row < PIECE_GRID_SIZE; row++) {
-		for (int col = 0; col < PIECE_GRID_SIZE; col++) {
-			if (isBlockAt(row, col)) {
-				int blockXPos = m_Position.x + (col - PIECE_CENTER_COL) * BLOCK_SIZE;
-				int blockYPos = m_Position.y + (row - PIECE_CENTER_ROW) * BLOCK_SIZE;
-				drawBlock(blockXPos, blockYPos);
+	for (int pieceRow = 0; pieceRow < PIECE_GRID_SIZE; pieceRow++) {
+		for (int pieceCol = 0; pieceCol < PIECE_GRID_SIZE; pieceCol++) {
+			if (isBlockAt(pieceRow, pieceCol)) {
+				int blockRow = m_GridRow + pieceRow - PIECE_CENTER_ROW;
+				int blockCol = m_GridCol + pieceCol - PIECE_CENTER_COL;
+				m_Grid->drawBlock(blockRow, blockCol);
 			}
 		}
 	}
@@ -115,6 +115,10 @@ bool Piece::isBlockAt(int pieceRow, int pieceCol) {
 	return isBlockAt(pieceRow, pieceCol, m_Orientation);
 }
 
+void Piece::placeOnGrid() {
+	m_Grid->placePiece(this, m_GridRow, m_GridCol);
+}
+
 bool Piece::pieceCollidesWithGrid(int centerGridRow, int centerGridCol) {
 	return pieceCollidesWithGrid(centerGridRow, centerGridCol, m_Orientation);
 }
@@ -130,11 +134,11 @@ bool Piece::pieceCollidesWithGrid(int centerGridRow, int centerGridCol, int orie
 
 			if (isBlockAt(pieceRow, pieceCol, orientation)) {
 				//check grid boundaries
-				if (gridRow >= GRID_SIZE_Y) {
+				if (gridRow >= GRID_NUM_ROWS) {
 					return true;
 				}
 
-				if (gridCol < 0 || gridCol >= GRID_SIZE_X) {
+				if (gridCol < 0 || gridCol >= GRID_NUM_COLS) {
 					return true;
 				}
 

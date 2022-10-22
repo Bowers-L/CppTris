@@ -111,8 +111,6 @@ namespace game {
 	}
 
 	void Game::OnUpdate() {
-		int dx = m_Input.right - m_Input.left;
-		
 		UpdateDrop();
 		UpdateDas();
 	}
@@ -121,6 +119,7 @@ namespace game {
 		if (m_DropTimer <= 0) {
 			bool movedDown = m_CurrentPiece->movePosOnGrid(1, 0);
 			if (!movedDown) {
+				m_CurrentPiece->placeOnGrid();
 				spawnNextPiece();
 			}
 
@@ -132,9 +131,10 @@ namespace game {
 	}
 
 	void Game::UpdateDas() {
+		int dx = m_Input.right - m_Input.left;
 		if (m_Input.left || m_Input.right) {
 			if (m_DasTimer <= 0) {
-				m_CurrentPiece->movePosOnGrid(0, m_Input.right - m_Input.left);
+				m_CurrentPiece->movePosOnGrid(0, dx);
 				m_DasTimer = AUTO_SHIFT_FRAME_DELAY;
 			}
 			else {

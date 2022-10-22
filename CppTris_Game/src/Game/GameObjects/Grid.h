@@ -2,8 +2,12 @@
 
 #include "Engine/Core.h"
 
-#define GRID_SIZE_X 10
-#define GRID_SIZE_Y 20
+#include "Piece.h"
+
+class Piece;	//forward declaration to prevent circular dependency
+
+#define GRID_NUM_COLS 10
+#define GRID_NUM_ROWS 20
 #define BLOCK_SIZE 20
 
 //Center horizontally
@@ -12,8 +16,13 @@
 
 class Grid : public GameObject
 {
+private:
+	char m_Blocks[GRID_NUM_ROWS][GRID_NUM_COLS];
 public:
 	Grid();
 
 	void draw();
+	void drawBlock(int row, int col);
+
+	void placePiece(Piece* piece, int row, int col);
 };

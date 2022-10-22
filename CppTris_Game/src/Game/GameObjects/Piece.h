@@ -8,6 +8,7 @@
 #include "Grid.h"
 #include "PieceData.h"
 
+class Grid;	//forward declaration to prevent circular dependency
 
 class Piece : public GameObject
 {
@@ -31,14 +32,15 @@ public:
 	bool rotateCW();
 	bool rotateCCW();
 
-	static void setRNG();
-	static PieceType getRandomPieceType();
-
-private:
-	bool updateOrientation(int newOrientation);
-
 	bool isBlockAt(int pieceRow, int pieceCol);
 	bool isBlockAt(int pieceRow, int pieceCol, int orientation);
+
+	void placeOnGrid();
+
+	static void setRNG();
+	static PieceType getRandomPieceType();
+private:
+	bool updateOrientation(int newOrientation);
 
 	bool pieceCollidesWithGrid(int centerGridRow, int centerGridCol);
 	bool pieceCollidesWithGrid(int centerGridRow, int centerGridCol, int orientation);
