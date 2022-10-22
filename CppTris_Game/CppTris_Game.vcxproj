@@ -101,9 +101,8 @@
     <ClCompile Include="src\Engine\Renderer\Shader.cpp" />
     <ClCompile Include="src\Game\Game.cpp" />
     <ClCompile Include="src\Engine\Application.cpp" />
-    <ClCompile Include="src\Engine\Texture.cpp" />
+    <ClCompile Include="src\Engine\Renderer\Texture.cpp" />
     <ClCompile Include="src\Game\GameObjects\PieceData.cpp" />
-    <ClCompile Include="src\Game\SpriteObj.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Vendor\glad.c" />
   </ItemGroup>
@@ -123,11 +122,9 @@
     <ClInclude Include="src\Engine\Renderer\Shader.h" />
     <ClInclude Include="src\Game\Game.h" />
     <ClInclude Include="src\Engine\Application.h" />
-    <ClInclude Include="src\Engine\Texture.h" />
+    <ClInclude Include="src\Engine\Renderer\Texture.h" />
     <ClInclude Include="src\Engine\Input.h" />
     <ClInclude Include="src\Game\GameObjects\PieceData.h" />
-    <ClInclude Include="src\Game\SpriteObj.h" />
-    <ClInclude Include="src\Game\TileMap.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Basic.shader" />

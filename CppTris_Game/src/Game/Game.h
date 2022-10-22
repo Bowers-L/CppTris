@@ -8,6 +8,8 @@
 #define DELAYED_AUTO_SHIFT_FRAME_DELAY 16
 #define AUTO_SHIFT_FRAME_DELAY 6
 
+#define HARD_DROP_DELAY 2
+
 namespace game {
 	class Game : public core::Application
 	{
@@ -16,7 +18,6 @@ namespace game {
 		Piece* m_CurrentPiece;
 		input::Input m_Input;
 
-		int m_PlayerVx, m_PlayerVy;
 		int m_CurrLevelSpeed;
 
 		int m_DropTimer;

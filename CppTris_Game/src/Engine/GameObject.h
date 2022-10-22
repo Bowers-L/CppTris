@@ -15,8 +15,6 @@ public:
 	GameObject(float x, float y);
 	GameObject();
 
-
-
 	~GameObject();
 
 	virtual void start() {}

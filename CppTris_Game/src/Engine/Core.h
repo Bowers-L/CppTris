@@ -6,6 +6,4 @@
 #include "GameObject.h"
 #include "Input.h"
 #include "Log.h"
-#include "Texture.h"
-
 #include "Renderer/Renderer.h"

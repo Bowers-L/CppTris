@@ -189,6 +189,16 @@ const static PieceData oPieceData = PieceData{ {
     }
 } };
 
+const std::unordered_map<PieceType, const char*> pieceTypeString = {
+    {PieceType::T, "T"},
+    {PieceType::S, "S"},
+    {PieceType::Z, "Z"},
+    {PieceType::I, "I"},
+    {PieceType::J, "J"},
+    {PieceType::L, "L"},
+    {PieceType::O, "O"}
+};
+
 const std::unordered_map<PieceType, PieceData> pieceData = {
     {PieceType::T, tPieceData},
     {PieceType::S, sPieceData},

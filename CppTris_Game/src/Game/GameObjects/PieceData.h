@@ -29,4 +29,5 @@ struct PieceData {
 };
 
 //I used a global variable, I'm sorry.
+extern const std::unordered_map<PieceType, const char*> pieceTypeString;
 extern const std::unordered_map<PieceType, PieceData> pieceData;

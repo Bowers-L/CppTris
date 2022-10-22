@@ -5,18 +5,14 @@
 
 std::mt19937_64 Piece::s_RNG;
 
-Piece::Piece(PieceType type, int x, int y) :
-	GameObject(x, y),
+Piece::Piece(PieceType type, Grid* grid, int gridRow, int gridCol) :
 	m_PieceType(type),
-	m_Orientation(0)
+	m_Grid(grid),
+	m_Orientation(0),
+	m_GridRow(gridRow),
+	m_GridCol(gridCol)
 {
-}
-
-Piece::Piece(PieceType type) :
-	GameObject(),
-	m_PieceType(type),
-	m_Orientation(0)
-{
+	setPosOnGrid(gridRow, gridCol);
 }
 
 void Piece::update() {
@@ -31,10 +27,7 @@ void Piece::draw() {
 	PieceData data = pieceData.at(m_PieceType);
 	for (int row = 0; row < PIECE_GRID_SIZE; row++) {
 		for (int col = 0; col < PIECE_GRID_SIZE; col++) {
-			int index = row * PIECE_GRID_SIZE + col;
-			char blockAtIndex = data.m_BlockGridPositions[m_Orientation][index];
-
-			if (blockAtIndex) {
+			if (isBlockAt(row, col)) {
 				int blockXPos = m_Position.x + (col - PIECE_CENTER_COL) * BLOCK_SIZE;
 				int blockYPos = m_Position.y + (row - PIECE_CENTER_ROW) * BLOCK_SIZE;
 				drawBlock(blockXPos, blockYPos);
@@ -46,21 +39,68 @@ void Piece::draw() {
 void Piece::drawBlock(int x, int y) {
 	//Draw a rectangle with a 1 pixel border
 	Renderer::drawRect(x+1, y+1, BLOCK_SIZE-1, BLOCK_SIZE-1);
-
-	//Drawing the borders
-
 }
 
-void Piece::setPosOnGrid(Grid* grid, int row, int col)
+bool Piece::setPosOnGrid(int row, int col)
 {
-	m_Position.x = grid->position().x + BLOCK_SIZE * col;
-	m_Position.y = grid->position().y + BLOCK_SIZE * row;
+	if (!pieceCollidesWithGrid(row, col)) {
+		m_GridRow = row;
+		m_Position.y = m_Grid->position().y + BLOCK_SIZE * row;
+
+		m_GridCol = col;
+		m_Position.x = m_Grid->position().x + BLOCK_SIZE * col;
+
+		return true;
+	}
+
+	return false;
 }
 
-void Piece::movePosOnGrid(Grid* grid, int dRow, int dCol)
+bool Piece::movePosOnGrid(int dRow, int dCol)
 {
-	m_Position.x += dCol * BLOCK_SIZE;
-	m_Position.y += dRow * BLOCK_SIZE;
+	if (!pieceCollidesWithGrid(m_GridRow+dRow, m_GridCol+dCol)) {
+		m_GridRow += dRow;
+		m_GridCol += dCol;
+
+		m_Position.x += dCol * BLOCK_SIZE;
+		m_Position.y += dRow * BLOCK_SIZE;
+		return true;
+	}
+	return false;
+}
+
+bool Piece::isBlockAt(int pieceRow, int pieceCol)
+{
+	PieceData data = pieceData.at(m_PieceType);
+	int index = pieceRow * PIECE_GRID_SIZE + pieceCol;
+	return data.m_BlockGridPositions[m_Orientation][index];
+}
+
+bool Piece::pieceCollidesWithGrid(int centerGridRow, int centerGridCol) {
+	//Check grid positions against the piece data
+	//If both are 1, there is a collision
+
+	for (int pieceRow = 0; pieceRow < PIECE_GRID_SIZE; pieceRow++) {
+		for (int pieceCol = 0; pieceCol < PIECE_GRID_SIZE; pieceCol++) {
+			int gridRow = centerGridRow + pieceRow - PIECE_CENTER_ROW;
+			int gridCol = centerGridCol + pieceCol - PIECE_CENTER_COL;
+
+			if (isBlockAt(pieceRow, pieceCol)) {
+				//check grid boundaries
+				if (gridRow >= GRID_SIZE_Y) {
+					return true;
+				}
+
+				if (gridCol < 0 || gridCol >= GRID_SIZE_X) {
+					return true;
+				}
+
+				//check blocks on grid
+			}
+		}
+	}
+
+	return false;
 }
 
 void Piece::rotateCW() 
@@ -76,9 +116,9 @@ void Piece::rotateCCW() {
 }
 
 PieceType Piece::getRandomPieceType() {
-	int rand = s_RNG() % 7;
-	DEBUG_LOG("%d", rand);
-	return (PieceType) (rand);
+	PieceType randomPiece = (PieceType) (s_RNG() % 7);
+	DEBUG_LOG("Random Piece Generated: %s", pieceTypeString.at(randomPiece));
+	return randomPiece;
 }
 
 void Piece::setRNG() {

@@ -16,8 +16,6 @@ namespace game {
 	Game::Game(const char* title) : 
 		Application(title),
 		m_Input(), 
-		m_PlayerVx(6), 
-		m_PlayerVy(6),
 		m_CurrLevelSpeed(10),
 		m_CurrentPiece(nullptr),
 		m_DropTimer(0),
@@ -45,7 +43,7 @@ namespace game {
 
 	void Game::spawnNextPiece() {
 		Destroy(m_CurrentPiece);
-		m_CurrentPiece = new Piece(Piece::getRandomPieceType(), GRID_OFFSET_X + 5 * BLOCK_SIZE, GRID_OFFSET_Y);
+		m_CurrentPiece = new Piece(Piece::getRandomPieceType(), m_Grid, 0, 5);
 		Instantiate(m_CurrentPiece);
 	}
 
@@ -63,12 +61,12 @@ namespace game {
 			case SDL_SCANCODE_LEFT:
 				m_Input.left = 1;
 				m_DasTimer = DELAYED_AUTO_SHIFT_FRAME_DELAY;
-				m_CurrentPiece->movePosOnGrid(m_Grid, 0, m_Input.right - m_Input.left);
+				m_CurrentPiece->movePosOnGrid(0, m_Input.right - m_Input.left);
 				break;
 			case SDL_SCANCODE_RIGHT:
 				m_Input.right = 1;
 				m_DasTimer = DELAYED_AUTO_SHIFT_FRAME_DELAY;
-				m_CurrentPiece->movePosOnGrid(m_Grid, 0, m_Input.right - m_Input.left);
+				m_CurrentPiece->movePosOnGrid(0, m_Input.right - m_Input.left);
 				break;
 			case SDL_SCANCODE_Z:
 				m_Input.z = 1;
@@ -117,16 +115,16 @@ namespace game {
 		
 		UpdateDrop();
 		UpdateDas();
-
-		if (m_CurrentPiece->position().y > SCREEN_HEIGHT) {
-			spawnNextPiece();
-		}
 	}
 
 	void Game::UpdateDrop() {
 		if (m_DropTimer <= 0) {
-			m_CurrentPiece->movePosOnGrid(m_Grid, 1, 0);
-			m_DropTimer = m_CurrLevelSpeed;
+			bool movedDown = m_CurrentPiece->movePosOnGrid(1, 0);
+			if (!movedDown) {
+				spawnNextPiece();
+			}
+
+			m_DropTimer = m_Input.down ? HARD_DROP_DELAY : m_CurrLevelSpeed;
 		}
 		else {
 			m_DropTimer--;
@@ -136,7 +134,7 @@ namespace game {
 	void Game::UpdateDas() {
 		if (m_Input.left || m_Input.right) {
 			if (m_DasTimer <= 0) {
-				m_CurrentPiece->movePosOnGrid(m_Grid, 0, m_Input.right - m_Input.left);
+				m_CurrentPiece->movePosOnGrid(0, m_Input.right - m_Input.left);
 				m_DasTimer = AUTO_SHIFT_FRAME_DELAY;
 			}
 			else {
