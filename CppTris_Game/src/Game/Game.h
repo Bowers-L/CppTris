@@ -34,6 +34,7 @@ namespace game {
 		//void OnQuit();	//Do any cleanup
 
 		void spawnNextPiece();
+		void resetGame();
 	private:
 		void UpdateDrop();
 		void UpdateDas();

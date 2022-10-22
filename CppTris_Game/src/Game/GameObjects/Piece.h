@@ -37,12 +37,17 @@ public:
 
 	void placeOnGrid();
 
+	int getGridRow();
+	int getGridCol();
+
+	bool pieceCollidesWithGrid();
+
 	static void setRNG();
 	static PieceType getRandomPieceType();
 private:
-	bool updateOrientation(int newOrientation);
-
 	bool pieceCollidesWithGrid(int centerGridRow, int centerGridCol);
 	bool pieceCollidesWithGrid(int centerGridRow, int centerGridCol, int orientation);
+
+	bool updateOrientation(int newOrientation);
 	void drawBlock(int x, int y);
 };

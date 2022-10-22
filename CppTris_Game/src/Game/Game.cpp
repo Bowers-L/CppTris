@@ -46,6 +46,18 @@ namespace game {
 		Destroy(m_CurrentPiece);
 		m_CurrentPiece = new Piece(Piece::getRandomPieceType(), m_Grid, 0, 5);
 		Instantiate(m_CurrentPiece);
+
+		//the spawned piece immediately collides with the grid
+		if (m_CurrentPiece->pieceCollidesWithGrid()) {
+			resetGame();
+		}
+	}
+
+	void Game::resetGame() {
+		if (m_CurrentPiece != nullptr) {
+			Destroy(m_CurrentPiece);
+			m_Grid->reset();
+		}
 	}
 
 	void Game::OnKeyDown(SDL_KeyboardEvent* e)

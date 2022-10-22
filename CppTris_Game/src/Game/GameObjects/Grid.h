@@ -21,6 +21,8 @@ private:
 public:
 	Grid();
 
+	void reset();
+
 	void draw();
 	void drawBlock(int row, int col);
 

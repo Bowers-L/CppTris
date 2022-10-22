@@ -4,6 +4,10 @@ Grid::Grid() :
 	GameObject(GRID_OFFSET_X, GRID_OFFSET_Y),
 	m_Blocks()
 {
+	reset();
+}
+
+void Grid::reset() {
 	for (int row = 0; row < GRID_NUM_ROWS; row++) {
 		for (int col = 0; col < GRID_NUM_COLS; col++) {
 			m_Blocks[row][col] = 0;

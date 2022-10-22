@@ -119,6 +119,10 @@ void Piece::placeOnGrid() {
 	m_Grid->placePiece(this, m_GridRow, m_GridCol);
 }
 
+bool Piece::pieceCollidesWithGrid() {
+	return pieceCollidesWithGrid(m_GridRow, m_GridCol);
+}
+
 bool Piece::pieceCollidesWithGrid(int centerGridRow, int centerGridCol) {
 	return pieceCollidesWithGrid(centerGridRow, centerGridCol, m_Orientation);
 }
@@ -150,4 +154,12 @@ bool Piece::pieceCollidesWithGrid(int centerGridRow, int centerGridCol, int orie
 	}
 
 	return false;
+}
+
+int Piece::getGridRow() {
+	return m_GridRow;
+}
+
+int Piece::getGridCol() {
+	return m_GridCol;
 }
