@@ -142,7 +142,9 @@ bool Piece::pieceCollidesWithGrid(int centerGridRow, int centerGridCol, int orie
 					return true;
 				}
 
-				//check blocks on grid
+				if (m_Grid->isBlockAt(gridRow, gridCol)) {
+					return true;
+				}
 			}
 		}
 	}

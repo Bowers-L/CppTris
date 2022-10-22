@@ -24,5 +24,7 @@ public:
 	void draw();
 	void drawBlock(int row, int col);
 
+	bool isBlockAt(int row, int col);
+
 	void placePiece(Piece* piece, int row, int col);
 };

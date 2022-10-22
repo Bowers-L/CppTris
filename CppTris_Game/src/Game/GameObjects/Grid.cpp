@@ -30,6 +30,10 @@ void Grid::draw() {
 	}
 }
 
+bool Grid::isBlockAt(int gridRow, int gridCol) {
+	return m_Blocks[gridRow][gridCol];
+}
+
 void Grid::drawBlock(int row, int col) {
 	//Draw a rectangle with a 1 pixel border
 	int x = m_Position.x + col * BLOCK_SIZE;
