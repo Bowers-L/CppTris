@@ -6,7 +6,7 @@
 #include "GameObjects/Piece.h"
 
 #define DELAYED_AUTO_SHIFT_FRAME_DELAY 16
-#define AUTO_SHIFT_FRAME_DELAY 6
+#define AUTO_SHIFT_FRAME_DELAY 4
 
 #define HARD_DROP_DELAY 2
 

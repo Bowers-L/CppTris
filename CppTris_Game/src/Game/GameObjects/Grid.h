@@ -10,9 +10,9 @@ class Piece;	//forward declaration to prevent circular dependency
 #define GRID_NUM_ROWS 20
 #define BLOCK_SIZE 20
 
-//Center horizontally
-#define GRID_OFFSET_Y 20
-#define GRID_OFFSET_X (SCREEN_WIDTH / 2 - BLOCK_SIZE * 5)
+//Center horizontally and vertically
+#define GRID_OFFSET_Y (SCREEN_HEIGHT / 2 - BLOCK_SIZE * GRID_NUM_ROWS / 2)
+#define GRID_OFFSET_X (SCREEN_WIDTH / 2 - BLOCK_SIZE * GRID_NUM_COLS / 2)
 
 class Grid : public GameObject
 {

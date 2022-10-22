@@ -13,13 +13,14 @@ core::Application* CreateApp() {
 }
 
 namespace game {
-	Game::Game(const char* title) : 
+	Game::Game(const char* title) :
 		Application(title),
-		m_Input(), 
+		m_Input(),
 		m_CurrLevelSpeed(10),
 		m_CurrentPiece(nullptr),
 		m_DropTimer(0),
-		m_DasTimer(0)
+		m_DasTimer(0),
+		m_Grid(nullptr)
 	{
 		m_Input.up = 0;
 		m_Input.down = 0;
