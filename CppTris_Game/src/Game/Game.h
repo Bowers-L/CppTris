@@ -36,6 +36,7 @@ namespace game {
 		void spawnNextPiece();
 		void resetGame();
 	private:
+		void InitDas();
 		void UpdateDrop();
 		void UpdateDas();
 	};

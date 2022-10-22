@@ -73,13 +73,13 @@ namespace game {
 				break;
 			case SDL_SCANCODE_LEFT:
 				m_Input.left = 1;
-				m_DasTimer = DELAYED_AUTO_SHIFT_FRAME_DELAY;
-				m_CurrentPiece->movePosOnGrid(0, m_Input.right - m_Input.left);
+
+				InitDas();
+
 				break;
 			case SDL_SCANCODE_RIGHT:
 				m_Input.right = 1;
-				m_DasTimer = DELAYED_AUTO_SHIFT_FRAME_DELAY;
-				m_CurrentPiece->movePosOnGrid(0, m_Input.right - m_Input.left);
+				InitDas();
 				break;
 			case SDL_SCANCODE_Z:
 				m_Input.z = 1;
@@ -120,6 +120,15 @@ namespace game {
 			default:
 				break;
 			}
+		}
+	}
+
+	void Game::InitDas() {
+		if (m_CurrentPiece->movePosOnGrid(0, m_Input.right - m_Input.left)) {
+			m_DasTimer = DELAYED_AUTO_SHIFT_FRAME_DELAY;
+		}
+		else {
+			m_DasTimer = 0;
 		}
 	}
 
