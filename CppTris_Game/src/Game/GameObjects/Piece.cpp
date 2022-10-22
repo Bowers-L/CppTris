@@ -69,14 +69,57 @@ bool Piece::movePosOnGrid(int dRow, int dCol)
 	return false;
 }
 
-bool Piece::isBlockAt(int pieceRow, int pieceCol)
+bool Piece::rotateCW() 
+{
+	int newOrientation = (m_Orientation + 1) % 4;
+
+	return updateOrientation(newOrientation);
+}
+
+bool Piece::rotateCCW() {
+	int newOrientation = m_Orientation - 1;
+	if (newOrientation < 0) {
+		newOrientation = 3;
+	}
+
+	return updateOrientation(newOrientation);
+}
+
+bool Piece::updateOrientation(int newOrientation) {
+	if (!pieceCollidesWithGrid(m_GridRow, m_GridCol, newOrientation)) {
+		m_Orientation = newOrientation;
+		return true;
+	}
+
+	return false;
+}
+
+PieceType Piece::getRandomPieceType() {
+	PieceType randomPiece = (PieceType) (s_RNG() % 7);
+	DEBUG_LOG("Random Piece Generated: %s", pieceTypeString.at(randomPiece));
+	return randomPiece;
+}
+
+void Piece::setRNG() {
+	s_RNG.seed(std::time(NULL));
+}
+
+bool Piece::isBlockAt(int pieceRow, int pieceCol, int orientation)
 {
 	PieceData data = pieceData.at(m_PieceType);
 	int index = pieceRow * PIECE_GRID_SIZE + pieceCol;
-	return data.m_BlockGridPositions[m_Orientation][index];
+	return data.m_BlockGridPositions[orientation][index];
+}
+
+bool Piece::isBlockAt(int pieceRow, int pieceCol) {
+	return isBlockAt(pieceRow, pieceCol, m_Orientation);
 }
 
 bool Piece::pieceCollidesWithGrid(int centerGridRow, int centerGridCol) {
+	return pieceCollidesWithGrid(centerGridRow, centerGridCol, m_Orientation);
+}
+
+bool Piece::pieceCollidesWithGrid(int centerGridRow, int centerGridCol, int orientation) {
 	//Check grid positions against the piece data
 	//If both are 1, there is a collision
 
@@ -85,7 +128,7 @@ bool Piece::pieceCollidesWithGrid(int centerGridRow, int centerGridCol) {
 			int gridRow = centerGridRow + pieceRow - PIECE_CENTER_ROW;
 			int gridCol = centerGridCol + pieceCol - PIECE_CENTER_COL;
 
-			if (isBlockAt(pieceRow, pieceCol)) {
+			if (isBlockAt(pieceRow, pieceCol, orientation)) {
 				//check grid boundaries
 				if (gridRow >= GRID_SIZE_Y) {
 					return true;
@@ -101,26 +144,4 @@ bool Piece::pieceCollidesWithGrid(int centerGridRow, int centerGridCol) {
 	}
 
 	return false;
-}
-
-void Piece::rotateCW() 
-{
-	m_Orientation = (m_Orientation + 1) % 4;
-}
-
-void Piece::rotateCCW() {
-	m_Orientation = m_Orientation - 1;
-	if (m_Orientation < 0) {
-		m_Orientation = 3;
-	}
-}
-
-PieceType Piece::getRandomPieceType() {
-	PieceType randomPiece = (PieceType) (s_RNG() % 7);
-	DEBUG_LOG("Random Piece Generated: %s", pieceTypeString.at(randomPiece));
-	return randomPiece;
-}
-
-void Piece::setRNG() {
-	s_RNG.seed(std::time(NULL));
 }

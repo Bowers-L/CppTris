@@ -28,15 +28,19 @@ public:
 	//Returns if the move was successfully made
 	bool setPosOnGrid(int row, int col);
 	bool movePosOnGrid(int dRow, int dCol);
-
-	void rotateCW();
-	void rotateCCW();
+	bool rotateCW();
+	bool rotateCCW();
 
 	static void setRNG();
 	static PieceType getRandomPieceType();
 
 private:
+	bool updateOrientation(int newOrientation);
+
 	bool isBlockAt(int pieceRow, int pieceCol);
-	bool pieceCollidesWithGrid(int dRow, int dCol);
+	bool isBlockAt(int pieceRow, int pieceCol, int orientation);
+
+	bool pieceCollidesWithGrid(int centerGridRow, int centerGridCol);
+	bool pieceCollidesWithGrid(int centerGridRow, int centerGridCol, int orientation);
 	void drawBlock(int x, int y);
 };
