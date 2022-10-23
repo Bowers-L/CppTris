@@ -10,4 +10,4 @@ The other two are:
 
 Note: This project is currently under development and only built for Windows / Visual Studio 2022.
 
-If you want to compile the project in VS and run it, you must copy the SDL2.dll and SDL2_image.dll files, located under the "vendor/SDL2-2.24.0/lib" and "vendor/SDL2_image-2.6.2/lib" folders respectively, into the "bin" directory containing your executable. This will be fixed in the future once I integrate a build system into the project. Sorry for the inconvenience :(
+The project has been updated with a Premake Lua script to build the project files. Run the Generate.bat script (double click in Windows) to generate the project files for Visual Studio. 
