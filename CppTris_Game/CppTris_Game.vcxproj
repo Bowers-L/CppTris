@@ -134,6 +134,7 @@ IF EXIST vendor\SDL2_image-2.6.2\lib\SDL2_Image.dll\ (xcopy /Q /E /Y /I vendor\S
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\StateMachine\State.h" />
     <ClInclude Include="src\Engine\Application.h" />
     <ClInclude Include="src\Engine\Core.h" />
     <ClInclude Include="src\Engine\GameObject.h" />
@@ -152,8 +153,11 @@ IF EXIST vendor\SDL2_image-2.6.2\lib\SDL2_Image.dll\ (xcopy /Q /E /Y /I vendor\S
     <ClInclude Include="src\Game\GameObjects\Grid.h" />
     <ClInclude Include="src\Game\GameObjects\Piece.h" />
     <ClInclude Include="src\Game\GameObjects\PieceData.h" />
+    <ClInclude Include="src\Game\States\StateGame.h" />
+    <ClInclude Include="src\Engine\StateMachine\StateManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\StateMachine\State.cpp" />
     <ClCompile Include="src\Engine\Application.cpp" />
     <ClCompile Include="src\Engine\GameObject.cpp" />
     <ClCompile Include="src\Engine\Log.cpp" />
@@ -170,6 +174,8 @@ IF EXIST vendor\SDL2_image-2.6.2\lib\SDL2_Image.dll\ (xcopy /Q /E /Y /I vendor\S
     <ClCompile Include="src\Game\GameObjects\PieceData.cpp" />
     <ClCompile Include="src\Vendor\glad.c" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Game\States\StateGame.cpp" />
+    <ClCompile Include="src\Engine\StateMachine\StateManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Basic.shader" />
