@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{3824E0A7-24C6-0A7E-0D81-1ED2F9C191CE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Shaders">
+      <UniqueIdentifier>{1101E1D1-FDCE-D4D7-E662-45FED2CFB03C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Engine">
+      <UniqueIdentifier>{12A1320E-FE58-745B-6760-4DB753370F4C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Engine\Renderer">
+      <UniqueIdentifier>{F838018B-649A-DE98-ED07-254B59681558}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Engine\Renderer\buffers">
+      <UniqueIdentifier>{940883FD-0016-B1E3-89FC-ACCEF5087D9A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game">
+      <UniqueIdentifier>{F6C81ECF-E295-79DA-0BAF-6782F7DAAE68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\GameObjects">
+      <UniqueIdentifier>{E9F4C1EE-D583-4BB8-7EA2-5FB36A105C5E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Vendor">
+      <UniqueIdentifier>{CA383B35-B6F0-7C82-1FF8-55DE0BCF1773}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Engine\Application.h">
+      <Filter>src\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Core.h">
+      <Filter>src\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\GameObject.h">
+      <Filter>src\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Input.h">
+      <Filter>src\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Log.h">
+      <Filter>src\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Renderer\RenderUtil.h">
+      <Filter>src\Engine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Renderer\Renderer.h">
+      <Filter>src\Engine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Renderer\Shader.h">
+      <Filter>src\Engine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Renderer\Texture.h">
+      <Filter>src\Engine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Renderer\buffers\Buffers.h">
+      <Filter>src\Engine\Renderer\buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Renderer\buffers\IndexBuffer.h">
+      <Filter>src\Engine\Renderer\buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Renderer\buffers\VertexArray.h">
+      <Filter>src\Engine\Renderer\buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Renderer\buffers\VertexBuffer.h">
+      <Filter>src\Engine\Renderer\buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Renderer\buffers\VertexBufferLayout.h">
+      <Filter>src\Engine\Renderer\buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Game.h">
+      <Filter>src\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\GameObjects\Grid.h">
+      <Filter>src\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\GameObjects\Piece.h">
+      <Filter>src\Game\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\GameObjects\PieceData.h">
+      <Filter>src\Game\GameObjects</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Engine\Application.cpp">
+      <Filter>src\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\GameObject.cpp">
+      <Filter>src\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Log.cpp">
+      <Filter>src\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Renderer\RenderUtil.cpp">
+      <Filter>src\Engine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Renderer\Renderer.cpp">
+      <Filter>src\Engine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Renderer\Shader.cpp">
+      <Filter>src\Engine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Renderer\Texture.cpp">
+      <Filter>src\Engine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Renderer\buffers\IndexBuffer.cpp">
+      <Filter>src\Engine\Renderer\buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Renderer\buffers\VertexArray.cpp">
+      <Filter>src\Engine\Renderer\buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Renderer\buffers\VertexBuffer.cpp">
+      <Filter>src\Engine\Renderer\buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Game.cpp">
+      <Filter>src\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\GameObjects\Grid.cpp">
+      <Filter>src\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\GameObjects\Piece.cpp">
+      <Filter>src\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\GameObjects\PieceData.cpp">
+      <Filter>src\Game\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vendor\glad.c">
+      <Filter>src\Vendor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Shaders\Basic.shader">
+      <Filter>Assets\Shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>

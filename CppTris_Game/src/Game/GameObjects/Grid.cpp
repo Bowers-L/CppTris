@@ -101,6 +101,5 @@ bool Grid::checkRowFull(int gridRow) {
 			rowFull = false;
 		}
 	}
-
 	return rowFull;
 }
