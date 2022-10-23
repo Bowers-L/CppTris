@@ -19,11 +19,17 @@
     <Filter Include="src\Engine\Renderer\buffers">
       <UniqueIdentifier>{940883FD-0016-B1E3-89FC-ACCEF5087D9A}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Engine\StateMachine">
+      <UniqueIdentifier>{379DB014-A3D4-F8AB-ACDE-5CCF18951FA5}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Game">
       <UniqueIdentifier>{F6C81ECF-E295-79DA-0BAF-6782F7DAAE68}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Game\GameObjects">
       <UniqueIdentifier>{E9F4C1EE-D583-4BB8-7EA2-5FB36A105C5E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\States">
+      <UniqueIdentifier>{F9F1E742-657D-5507-6E8E-D8FBDA98B107}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Vendor">
       <UniqueIdentifier>{CA383B35-B6F0-7C82-1FF8-55DE0BCF1773}</UniqueIdentifier>
@@ -72,6 +78,12 @@
     <ClInclude Include="src\Engine\Renderer\buffers\VertexBufferLayout.h">
       <Filter>src\Engine\Renderer\buffers</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\StateMachine\State.h">
+      <Filter>src\Engine\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\StateMachine\StateManager.h">
+      <Filter>src\Engine\StateMachine</Filter>
+    </ClInclude>
     <ClInclude Include="src\Game\Game.h">
       <Filter>src\Game</Filter>
     </ClInclude>
@@ -84,9 +96,12 @@
     <ClInclude Include="src\Game\GameObjects\PieceData.h">
       <Filter>src\Game\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\StateMachine\State.h" />
-    <ClInclude Include="src\Game\States\StateGame.h" />
-    <ClInclude Include="src\Engine\StateMachine\StateManager.h" />
+    <ClInclude Include="src\Game\States\StateGame.h">
+      <Filter>src\Game\States</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\States\StateTitle.h">
+      <Filter>src\Game\States</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Application.cpp">
@@ -119,6 +134,12 @@
     <ClCompile Include="src\Engine\Renderer\buffers\VertexBuffer.cpp">
       <Filter>src\Engine\Renderer\buffers</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\StateMachine\State.cpp">
+      <Filter>src\Engine\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\StateMachine\StateManager.cpp">
+      <Filter>src\Engine\StateMachine</Filter>
+    </ClCompile>
     <ClCompile Include="src\Game\Game.cpp">
       <Filter>src\Game</Filter>
     </ClCompile>
@@ -131,15 +152,18 @@
     <ClCompile Include="src\Game\GameObjects\PieceData.cpp">
       <Filter>src\Game\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\States\StateGame.cpp">
+      <Filter>src\Game\States</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\States\StateTitle.cpp">
+      <Filter>src\Game\States</Filter>
+    </ClCompile>
     <ClCompile Include="src\Vendor\glad.c">
       <Filter>src\Vendor</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\StateMachine\State.cpp" />
-    <ClCompile Include="src\Game\States\StateGame.cpp" />
-    <ClCompile Include="src\Engine\StateMachine\StateManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Basic.shader">

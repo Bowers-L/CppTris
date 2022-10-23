@@ -1,7 +1,7 @@
 #include "StateGame.h"
 
-StateGame::StateGame(core::Application* app) :
-	State(app),
+StateGame::StateGame(Game* app, StateManager* stateManager) :
+	State(app, stateManager),
 	m_Grid(nullptr),
 	m_CurrentPiece(nullptr),
 	m_CurrLevelSpeed(10),

@@ -1,9 +1,9 @@
 #include "Engine/Application.h"
 
-extern core::Application* CreateApp();
+extern Application* CreateApp();
 
 int main(int argc, char* argv[]) {
-	core::Application* app = CreateApp();
+	Application* app = CreateApp();
 	app->Run();
 	delete app;
 

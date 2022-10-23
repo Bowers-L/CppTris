@@ -1,7 +1,6 @@
 #include "State.h"
 
-namespace core {
-	State::State(Application* app) :
-		m_App(app)
-	{}
-}
+State::State(Application* app, StateManager* stateManager) :
+	m_App(app),
+	m_StateManager(stateManager)
+{}

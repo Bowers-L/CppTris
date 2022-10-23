@@ -2,6 +2,8 @@
 
 #include "Engine/Core.h"
 
+#include "../Game.h"
+
 #include "../GameObjects/Piece.h"
 #include "../GameObjects/Grid.h"
 
@@ -13,22 +15,23 @@
 
 class Grid;
 class Piece;
+class Game;
 
-class StateGame : public core::State
+class StateGame : public State
 {
 private:
 	input::Input m_Input;
 
 	Grid* m_Grid;
 	Piece* m_CurrentPiece;
-
 	int m_CurrLevelSpeed;
 
 	int m_DropTimer;
 	int m_DasTimer;
 
 public:
-	StateGame(core::Application* app);
+	StateGame(Game* app, StateManager* stateManager);
+
 	void OnEnter();
 	void OnUpdate();
 	void OnKeyDown(SDL_KeyboardEvent* e);
@@ -41,4 +44,3 @@ private:
 	void UpdateDrop();
 	void UpdateDas();
 };
-
