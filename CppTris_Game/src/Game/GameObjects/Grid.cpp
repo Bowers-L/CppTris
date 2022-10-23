@@ -53,7 +53,9 @@ void Grid::placePiece(Piece* piece, int row, int col) {
 				int gridRow = row + pieceRow - PIECE_CENTER_ROW;
 				int gridCol = col + pieceCol - PIECE_CENTER_COL;
 
-				m_Blocks[gridRow][gridCol] = 1;
+				if (gridRow >= 0 && gridRow <= GRID_NUM_ROWS && gridCol >= 0 && gridCol <= GRID_NUM_COLS) {
+					m_Blocks[gridRow][gridCol] = 1;
+				}
 			}
 		}
 	}
