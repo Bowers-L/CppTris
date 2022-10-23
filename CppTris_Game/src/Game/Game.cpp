@@ -22,7 +22,7 @@ Game::Game(const char* title) :
 
 //Honestly, at this point the state manager should extend the application class.
 void Game::OnStart() {
-	m_StateManager->GoTo(m_StateTitle);
+	m_StateManager->GoTo(m_StateGame);
 }
 
 void Game::OnEvent(SDL_Event* e) {
